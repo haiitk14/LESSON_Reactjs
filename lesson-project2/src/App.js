@@ -23,6 +23,16 @@ class App extends Component {
                     id: 2,
                     name: "Lập trình nâng cao",
                     status: 1
+                },
+                {
+                    id: 3,
+                    name: "AAAAA",
+                    status: 0
+                },
+                {
+                    id: 4,
+                    name: "BBBBBBB",
+                    status: 0
                 }
             ],
             jobObject: {
@@ -30,7 +40,9 @@ class App extends Component {
                 name: "",
                 status: 0
             },
-            isEdit: false
+            isEdit: false,
+            txtSearch: "",
+            typeSort: "",
             
         }
     };
@@ -74,6 +86,7 @@ class App extends Component {
     };
 
     onReturnHide = () => {
+
         this.setState({
             isShowDetail: false,
             isEdit: false,
@@ -81,7 +94,6 @@ class App extends Component {
     };
 
     onListenEdit = (params) => {
-        console.log(params);
 
         var someProperty = { ...this.state.jobObject } ;
         someProperty.id = params.id;
@@ -94,7 +106,50 @@ class App extends Component {
         });
     };
 
+    onListenDelete = (id) => {
+        var arrNew = this.state.results.filter(job => job.id !== id ); 
+
+        this.setState({
+            results: arrNew
+        });
+    };
+
+    onListenSearch = (params) => {
+        this.setState({
+            txtSearch: params
+        });
+    };
+
+    onListenTypeSort = (params) => {
+        let arrNew2 = this.state.results;
+
+        switch(params) {
+            case "AZ":
+                arrNew2.sort((a, b) => (a.name > b.name) ? 1 : -1);
+                break;
+            case "ZA":
+                arrNew2.sort((a, b) => (a.name > b.name) ? 1 : -1);
+                arrNew2.reverse();
+                break;
+            case "Hide":
+                break;
+            case "Active":
+                break;
+            default:
+                break;
+
+        }
+
+        this.setState({
+            typeSort: params,
+            results: arrNew2
+        });
+    }
+
     render() {
+
+
+
         return (
             <div className="container">
                 <div className="page-header">
@@ -108,14 +163,18 @@ class App extends Component {
 
                     <div className={ this.state.isShowDetail === true ? this.state.col8 : this.state.col12 }>
                         <div className="form-group">
-                            <button type="button" className="btn btn-primary" onClick={this.onClickAdd}><i className="fa fa-plus"></i> Thêm mới</button>
+                            <button type="button" className="btn btn-primary" onClick={ this.onClickAdd }><i className="fa fa-plus"></i> Thêm mới</button>
                         </div>
                         <div className="row form-group">
-                            <Search></Search>
-                            <Sort></Sort>
+                            <Search txtSearch={ this.state.txtSearch } onListenSearch={ this.onListenSearch }></Search>
+                            <Sort typeSort={ this.typeSort } onListenTypeSort={ this.onListenTypeSort }></Sort>
                         </div>
                         <div className="form-group">
-                            <Result dataResults={ this.state.results } onListenEdit={ this.onListenEdit }></Result>
+                            <Result dataResults={ this.state.results } 
+                                    onListenEdit={ this.onListenEdit } 
+                                    onListenDelete={ this.onListenDelete } 
+                                    txtSearch={ this.state.txtSearch }
+                            ></Result>
                         </div>
                     </div>
                 </div>
