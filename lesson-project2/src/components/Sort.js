@@ -9,11 +9,11 @@ class Sort extends Component {
                 Action <span className="caret"></span>
               </button>
               <ul className="dropdown-menu">
-                <li><a >Action</a></li>
-                <li><a>Another action</a></li>
-                <li><a>Something else here</a></li>
+               {/* <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
                 <li className="divider"></li>
-                <li><a>Separated link</a></li>
+                <li><a href="#">Separated link</a></li>*/}
               </ul>
             </div>
           </div>

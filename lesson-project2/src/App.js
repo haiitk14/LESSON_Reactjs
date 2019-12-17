@@ -12,19 +12,89 @@ class App extends Component {
             col12: "col-xs-12 col-sm-12 col-md-12 col-lg-12",
             col8: "col-xs-8 col-sm-8 col-md-8 col-lg-8",
             col4: "col-xs-4 col-sm-4 col-md-4 col-lg-4",
-            isAdd: false,
+            isShowDetail: false,
+            results: [
+                {
+                    id: 1,
+                    name: "Lập trình cơ bản",
+                    status: 1
+                },
+                {
+                    id: 2,
+                    name: "Lập trình nâng cao",
+                    status: 1
+                }
+            ],
+            jobObject: {
+                id: 0,
+                name: "",
+                status: 0
+            },
+            isEdit: false
             
         }
     };
 
     onClickAdd = () => {
+
+        var job = this.state.jobObject;
+        job.id = 0;
+        job.name = "";
+        job.status = 0;
         this.setState({
-            isAdd: !this.state.isAdd
+            isShowDetail: !this.state.isShowDetail,
+            jobObject: job
+        });
+    };
+
+    onReturnDetail = (params) => {
+        let arrNew = this.state.results;
+
+        if (this.state.isEdit === false) {
+            arrNew.push({
+                id: params.id,
+                name: params.name,
+                status: Number(params.status)
+            });
+        } else {
+            arrNew.map((job, index) => {
+
+                if ( job.id === params.id ) {
+                    job.name = params.name;
+                    job.status = Number(params.status);
+                }
+            });
+        }
+        
+        this.setState({ 
+            results: arrNew,
+            isShowDetail: false,
+            isEdit: false
+        });
+    };
+
+    onReturnHide = () => {
+        this.setState({
+            isShowDetail: false,
+            isEdit: false,
+        });
+    };
+
+    onListenEdit = (params) => {
+        console.log(params);
+
+        var someProperty = { ...this.state.jobObject } ;
+        someProperty.id = params.id;
+        someProperty.name = params.name;
+        someProperty.status = params.status;
+        this.setState({
+            jobObject: someProperty,
+            isShowDetail: true,
+            isEdit: true
         });
     };
 
     render() {
-
         return (
             <div className="container">
                 <div className="page-header">
@@ -32,11 +102,11 @@ class App extends Component {
                 </div>
                 <div className="row">
 
-                    <div className={ this.state.isAdd === true ? this.state.col4 : "hidden" }>
-                        <Detail></Detail>
+                    <div className={ this.state.isShowDetail === true ? this.state.col4 : "hidden" }>
+                        <Detail jobObject={ this.state.jobObject } onReturnDetail={ this.onReturnDetail } onReturnHide={ this.onReturnHide }></Detail>
                     </div>
 
-                    <div className={ this.state.isAdd === true ? this.state.col8 : this.state.col12 }>
+                    <div className={ this.state.isShowDetail === true ? this.state.col8 : this.state.col12 }>
                         <div className="form-group">
                             <button type="button" className="btn btn-primary" onClick={this.onClickAdd}><i className="fa fa-plus"></i> Thêm mới</button>
                         </div>
@@ -45,7 +115,7 @@ class App extends Component {
                             <Sort></Sort>
                         </div>
                         <div className="form-group">
-                            <Result></Result>
+                            <Result dataResults={ this.state.results } onListenEdit={ this.onListenEdit }></Result>
                         </div>
                     </div>
                 </div>
