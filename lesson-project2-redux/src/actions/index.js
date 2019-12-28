@@ -19,3 +19,10 @@ export const deleteTasks = (id) => {
 		id //id: id
 	}
 }
+
+export const toggleForm = (boolToggle) => {
+	return {
+		type: types.TOGGLE_FORM,
+		boolToggle: boolToggle
+	}
+}

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; // kết nối store láy state
+import * as actions from './actions/index'
+
+
 import Search from './components/Search';
 import Sort from './components/Sort';
 import Result from './components/Result';
@@ -29,15 +33,7 @@ class App extends Component {
     };
 
     onClickAdd = () => {
-
-        var job = this.state.jobObject;
-        job.id = 0;
-        job.name = "";
-        job.status = 0;
-        this.setState({
-            isShowDetail: !this.state.isShowDetail,
-            jobObject: job
-        });
+        this.props.changeToggle(!this.props.isShowDetail);
     };
 
     onReturnDetail = (params) => {
@@ -129,7 +125,7 @@ class App extends Component {
 
     render() {
 
-
+        console.log("isShowDetail = ", this.props.isShowDetail);
 
         return (
             <div className="container">
@@ -138,11 +134,11 @@ class App extends Component {
                 </div>
                 <div className="row">
 
-                    <div className={ this.state.isShowDetail === true ? this.state.col4 : "hidden" }>
-                        <Detail jobObject={ this.state.jobObject } onReturnHide={ this.onReturnHide }></Detail>
+                    <div className={ this.props.isShowDetail === true ? this.state.col4 : "hidden" }>
+                        <Detail jobObject={ this.state.jobObject } ></Detail>
                     </div>
 
-                    <div className={ this.state.isShowDetail === true ? this.state.col8 : this.state.col12 }>
+                    <div className={ this.props.isShowDetail === true ? this.state.col8 : this.state.col12 }>
                         <div className="form-group">
                             <button type="button" className="btn btn-primary" onClick={ this.onClickAdd }><i className="fa fa-plus"></i> Thêm mới</button>
                         </div>
@@ -161,6 +157,19 @@ class App extends Component {
             </div>
         );
     }
-}
 
-export default App;
+
+}
+const mapStatetoProps = (state) => {
+    return {
+        isShowDetail: state.toggle
+    }
+ }
+ const mapDispatchToProps = (dispatch, props) => {
+    return {
+        changeToggle: (boolToggle) => {
+            dispatch(actions.toggleForm(boolToggle));
+        }
+    }
+ }
+export default connect(mapStatetoProps, mapDispatchToProps) (App);

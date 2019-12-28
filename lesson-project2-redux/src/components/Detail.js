@@ -47,7 +47,7 @@ class Detail extends Component {
     };
 
     onHandlerHide =() => {
-        this.props.onReturnHide();
+        this.props.onReturnHide(false);
     };
 
     render() {
@@ -111,6 +111,9 @@ const mapStatetoProps = (state) => {
     return {
         onAddTask: (tasks) => {
             dispatch(actions.addTasks(tasks));
+        },
+        onReturnHide: (boolToogle) => {
+             dispatch(actions.toggleForm(boolToogle));
         }
     }
  }
