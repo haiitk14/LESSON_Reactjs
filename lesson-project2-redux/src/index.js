@@ -10,7 +10,10 @@ import myReducer from './reducers/index';
 //Provider kết nối react với redux
 import { Provider } from 'react-redux'; 
 
-const store = createStore(myReducer);// tạo store
+const store = createStore(
+	myReducer,
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);// tạo store
 
 ReactDOM.render(
 	<Provider store={ store }>

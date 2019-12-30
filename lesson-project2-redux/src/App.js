@@ -16,10 +16,6 @@ class App extends Component {
             col12: "col-xs-12 col-sm-12 col-md-12 col-lg-12",
             col8: "col-xs-8 col-sm-8 col-md-8 col-lg-8",
             col4: "col-xs-4 col-sm-4 col-md-4 col-lg-4",
-            isShowDetail: false,
-            results: [
-                
-            ],
             jobObject: {
                 id: 0,
                 name: "",
@@ -32,7 +28,7 @@ class App extends Component {
         }
     };
 
-    onClickAdd = () => {
+    onClickBtnAdd = () => {
         this.props.changeToggle(!this.props.isShowDetail);
     };
 
@@ -62,14 +58,6 @@ class App extends Component {
         });
     };
 
-    onReturnHide = () => {
-
-        this.setState({
-            isShowDetail: false,
-            isEdit: false,
-        });
-    };
-
     onListenEdit = (params) => {
 
         var someProperty = { ...this.state.jobObject } ;
@@ -80,14 +68,6 @@ class App extends Component {
             jobObject: someProperty,
             isShowDetail: true,
             isEdit: true
-        });
-    };
-
-    onListenDelete = (id) => {
-        var arrNew = this.state.results.filter(job => job.id !== id ); 
-
-        this.setState({
-            results: arrNew
         });
     };
 
@@ -125,8 +105,6 @@ class App extends Component {
 
     render() {
 
-        console.log("isShowDetail = ", this.props.isShowDetail);
-
         return (
             <div className="container">
                 <div className="page-header">
@@ -135,12 +113,12 @@ class App extends Component {
                 <div className="row">
 
                     <div className={ this.props.isShowDetail === true ? this.state.col4 : "hidden" }>
-                        <Detail jobObject={ this.state.jobObject } ></Detail>
+                        <Detail ></Detail>
                     </div>
 
                     <div className={ this.props.isShowDetail === true ? this.state.col8 : this.state.col12 }>
                         <div className="form-group">
-                            <button type="button" className="btn btn-primary" onClick={ this.onClickAdd }><i className="fa fa-plus"></i> Thêm mới</button>
+                            <button type="button" className="btn btn-primary" onClick={ this.onClickBtnAdd }><i className="fa fa-plus"></i> Thêm mới</button>
                         </div>
                         <div className="row form-group">
                             <Search txtSearch={ this.state.txtSearch } onListenSearch={ this.onListenSearch }></Search>
@@ -162,7 +140,8 @@ class App extends Component {
 }
 const mapStatetoProps = (state) => {
     return {
-        isShowDetail: state.toggle
+        isShowDetail: state.toggle,
+        itemEditing: state.itemEditing
     }
  }
  const mapDispatchToProps = (dispatch, props) => {

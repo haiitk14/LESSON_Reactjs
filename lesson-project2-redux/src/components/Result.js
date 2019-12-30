@@ -6,15 +6,21 @@ import * as actions from './../actions/index'
 class Result extends Component {
 
     onHandlerEdit = (params) => {
-        this.props.onListenEdit(params);
+        // this.props.onListenEdit(params);
+        this.props.onEditing(params);
+        this.props.openForm(true);
+
     };
 
     onHandlerDelete = (id) => {
       this.props.onDeleteTasks(id);
     };
+
+    onHandlerUpdateStatus = (id) => {
+        this.props.onUpdateStatus(id);
+    }
     
     render() {
-        console.log(this.props.dataResults);
         
         let elm = this.props.dataResults.map((job, index) => {
             let txtS = this.props.txtSearch;
@@ -24,8 +30,11 @@ class Result extends Component {
                 return  <tr key={index}>
                             <td>{ index + 1 }</td>
                             <td>{ job.name }</td>
-                            <td>
-                                { job.status === 1 ? "Kích hoạt" : "Ẩn" }
+                            <td onClick={ () => { this.onHandlerUpdateStatus(job.id) } }>
+                                { job.status === true 
+                                    ? <span className="label label-success">Kích hoạt</span> 
+                                    : <span className="label label-danger">Ẩn</span> 
+                                }
                             </td>
                             <td>
                                 <button type="button" className="btn btn-warning" onClick={ () => { this.onHandlerEdit(job); } }>Sửa</button>&nbsp;
@@ -70,7 +79,16 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onDeleteTasks: (id) => {
             dispatch(actions.deleteTasks(id));
-        }
+        },
+        onUpdateStatus: (id) => {
+            dispatch(actions.updateStatusTask(id))
+        },
+        openForm: (boolToggle) => {
+            dispatch(actions.toggleForm(boolToggle))
+        },
+        onEditing: (task) => {
+            dispatch(actions.editTask(task))
+        },
     }
  }
 

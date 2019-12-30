@@ -4,24 +4,34 @@ var initialState = [
 	{
         id: 1,
         name: "Lập trình cơ bản",
-        status: 1
+        status: true
     },
     {
         id: 2,
         name: "Lập trình nâng cao",
-        status: 1
+        status: true
     },
     {
         id: 3,
         name: "AAAAA",
-        status: 0
+        status: false
     },
     {
         id: 4,
         name: "BBBBBBB",
-        status: 0
+        status: false
     }	
 ];
+
+var findIndex = (tasks, id) => {
+    var res = -1;
+    tasks.forEach(function (item, index) {
+        if (item.id === id) {
+            res = index;
+        }
+    });
+    return res;
+}
 
 var myReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -29,14 +39,40 @@ var myReducer = (state = initialState, action) => {
 		case types.LIST_ALL:
 			return state;
 
-		case types.ADD_TASKS:
-			state.push(action.task);
-			return [...state]; // copy state mới
+		case types.SAVE_TASK:
+            var task = {
+                id: action.task.id ,
+                name: action.task.name,
+                status: action.task.status
+            }
+            if (!task.id) {
+                task.id = Math.floor(Math.random() * 1000);
+                state.push(task);
+            } else {
+               var index = findIndex(state, task.id);
+               state[index] = task;
+            }
+			return [...state]; // copy [] state mới
 
 		case types.DELETE_TASKS:
 			state = state.filter(job => job.id !== action.id ); 
-			return [...state]; // copy state mới
+            return [...state]; // copy [] state mới
+            
+        case types.UPDATE_STATUS_TASK:
+            var id = action.id;
+            var index = findIndex(state, id);
+            
+            //------------ Cách 1 ------
+            // var cloneTask = {...state[index]};
+            // cloneTask.status = cloneTask.status === 1 ? 0 : 1;
+            // state[index] = cloneTask;
 
+            // ----------- Cách 2 ------
+            state[index] = {
+                ...state[index],
+                status: state[index].status = !state[index].status
+            }
+            return [...state];
 
 		default: return state;
 	}

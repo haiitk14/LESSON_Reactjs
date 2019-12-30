@@ -6,9 +6,9 @@ class Detail extends Component {
     constructor() {
         super();
         this.state = {
-            id:  Math.floor(Math.random() * 1000),
+            id:  0,
             txtName: "",
-            sltStatus: 1
+            sltStatus: "true"
         };
     };
 
@@ -17,11 +17,16 @@ class Detail extends Component {
         Phải gọi setState() nếu muốn render lại.
     */
     UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({
-            id: nextProps.jobObject.id,
-            txtName: nextProps.jobObject.name,
-            sltStatus: nextProps.jobObject.status
-        });
+        if (nextProps.itemEditing && nextProps.itemEditing.id) {
+            this.setState({
+                id: nextProps.itemEditing.id,
+                txtName: nextProps.itemEditing.name,
+                sltStatus: nextProps.itemEditing.status
+            });
+        } else {
+            this.onResetState();
+        }
+        
     };
 
     onChangeHandler = (event) => {
@@ -34,21 +39,25 @@ class Detail extends Component {
 
     onHandlerSubmit = (event) => {
         event.preventDefault();
-
-        this.props.onAddTask({
+        this.props.onSaveTask({
             id: this.state.id,
             name: this.state.txtName,
-            status: this.state.sltStatus
+            status: this.state.sltStatus === "true" ? true : false
         });
-        this.setState({
-            txtName: "",
-            sltStatus: 0
-        });
+        this.onResetState();
     };
 
     onHandlerHide =() => {
         this.props.onReturnHide(false);
     };
+
+    onResetState = () => {
+        this.setState({
+            id: 0,
+            txtName: "",
+            sltStatus: "true"
+        });
+    }
 
     render() {
         return (
@@ -78,8 +87,8 @@ class Detail extends Component {
                                 <div className="form-group">
                                     <label>Trạng thái</label>
                                     <select name="sltStatus" className="form-control" value={ this.state.sltStatus } onChange={ this.onChangeHandler }>
-                                        <option value={0}>Ẩn</option>
-                                        <option value={1}>Kích hoạt</option>
+                                        <option value={false}>Ẩn</option>
+                                        <option value={true}>Kích hoạt</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
@@ -99,7 +108,7 @@ class Detail extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        
+        itemEditing: state.itemEditing
     }
  }
  // connect(mapStatetoProps, null)
@@ -109,12 +118,12 @@ const mapStatetoProps = (state) => {
  */
  const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddTask: (tasks) => {
-            dispatch(actions.addTasks(tasks));
+        onSaveTask: (task) => {
+            dispatch(actions.saveTask(task));
         },
         onReturnHide: (boolToogle) => {
              dispatch(actions.toggleForm(boolToogle));
-        }
+        },
     }
  }
 
