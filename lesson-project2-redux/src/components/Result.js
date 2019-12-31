@@ -6,7 +6,6 @@ import * as actions from './../actions/index'
 class Result extends Component {
 
     onHandlerEdit = (params) => {
-        // this.props.onListenEdit(params);
         this.props.onEditing(params);
         this.props.openForm(true);
 

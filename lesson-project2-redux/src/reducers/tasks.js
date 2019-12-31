@@ -13,12 +13,12 @@ var initialState = [
     },
     {
         id: 3,
-        name: "AAAAA",
+        name: "Học ReactJS",
         status: false
     },
     {
         id: 4,
-        name: "BBBBBBB",
+        name: "Học Redux",
         status: false
     }	
 ];
@@ -73,6 +73,11 @@ var myReducer = (state = initialState, action) => {
                 status: state[index].status = !state[index].status
             }
             return [...state];
+        
+            case types.SEARCH_TASKS:
+                var txtSearch = action.txtSearch;
+                console.log(txtSearch);
+                return [...state];
 
 		default: return state;
 	}

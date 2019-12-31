@@ -58,19 +58,6 @@ class App extends Component {
         });
     };
 
-    onListenEdit = (params) => {
-
-        var someProperty = { ...this.state.jobObject } ;
-        someProperty.id = params.id;
-        someProperty.name = params.name;
-        someProperty.status = params.status;
-        this.setState({
-            jobObject: someProperty,
-            isShowDetail: true,
-            isEdit: true
-        });
-    };
-
     onListenSearch = (params) => {
         this.setState({
             txtSearch: params
@@ -126,7 +113,6 @@ class App extends Component {
                         </div>
                         <div className="form-group">
                             <Result 
-                                    onListenEdit={ this.onListenEdit } 
                                     txtSearch={ this.state.txtSearch }
                             ></Result>
                         </div>

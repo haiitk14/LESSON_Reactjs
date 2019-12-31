@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; // kết nối store láy state
+import * as actions from './../actions/index'
 
 class Search extends Component {
     constructor() {
@@ -16,7 +18,8 @@ class Search extends Component {
     };
 
     onClickSearch = () => {
-        this.props.onListenSearch(this.state.txtSearch);
+        //this.props.onListenSearch(this.state.txtSearch);
+        this.props.onSearchTasks(this.state.txtSearch);
     }
 
     render() {
@@ -32,5 +35,18 @@ class Search extends Component {
         );
     }
 }
+const mapStatetoProps = (state) => {
+    return {
+        
+    }
+ }
 
-export default Search;
+ const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSearchTasks: (txtSearch) => {
+            dispatch(actions.searchTasks(txtSearch));
+        },
+    }
+ }
+
+export default connect(mapStatetoProps, mapDispatchToProps) (Search);

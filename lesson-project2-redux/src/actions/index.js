@@ -40,3 +40,9 @@ export const editTask = (task) => {
 		task //task: task
 	}
 }
+export const searchTasks = (txtSearch) => {
+	return {
+		type: types.SEARCH_TASKS,
+		txtSearch
+	}
+}
