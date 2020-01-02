@@ -77,6 +77,15 @@ var myReducer = (state = initialState, action) => {
             case types.SEARCH_TASKS:
                 var txtSearch = action.txtSearch;
                 console.log(txtSearch);
+                // var array = [];
+
+                // [...state].forEach((element, index) => {
+                //     if (element.name.toLowerCase().includes(txtSearch.trim().toLowerCase())) {
+                //         array.push(element);
+                //     }
+                // });
+                // state = array;
+
                 return [...state];
 
 		default: return state;

@@ -58,12 +58,6 @@ class App extends Component {
         });
     };
 
-    onListenSearch = (params) => {
-        this.setState({
-            txtSearch: params
-        });
-    };
-
     onListenTypeSort = (params) => {
         let arrNew2 = this.state.results;
 
@@ -108,13 +102,11 @@ class App extends Component {
                             <button type="button" className="btn btn-primary" onClick={ this.onClickBtnAdd }><i className="fa fa-plus"></i> Thêm mới</button>
                         </div>
                         <div className="row form-group">
-                            <Search txtSearch={ this.state.txtSearch } onListenSearch={ this.onListenSearch }></Search>
+                            <Search></Search>
                             <Sort typeSort={ this.typeSort } onListenTypeSort={ this.onListenTypeSort }></Sort>
                         </div>
                         <div className="form-group">
-                            <Result 
-                                    txtSearch={ this.state.txtSearch }
-                            ></Result>
+                            <Result></Result>
                         </div>
                     </div>
                 </div>

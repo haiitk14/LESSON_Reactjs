@@ -22,25 +22,21 @@ class Result extends Component {
     render() {
         
         let elm = this.props.dataResults.map((job, index) => {
-            let txtS = this.props.txtSearch;
-
-            if (job.name.toLowerCase().includes(txtS.trim().toLowerCase())) {
                 
-                return  <tr key={index}>
-                            <td>{ index + 1 }</td>
-                            <td>{ job.name }</td>
-                            <td onClick={ () => { this.onHandlerUpdateStatus(job.id) } }>
-                                { job.status === true 
-                                    ? <span className="label label-success">Kích hoạt</span> 
-                                    : <span className="label label-danger">Ẩn</span> 
-                                }
-                            </td>
-                            <td>
-                                <button type="button" className="btn btn-warning" onClick={ () => { this.onHandlerEdit(job); } }>Sửa</button>&nbsp;
-                                <button type="button" className="btn btn-danger" onClick={ () => { this.onHandlerDelete(job.id); } }>Xóa</button>
-                            </td>
-                        </tr>
-            }
+            return  <tr key={index}>
+                        <td>{ index + 1 }</td>
+                        <td>{ job.name }</td>
+                        <td onClick={ () => { this.onHandlerUpdateStatus(job.id) } }>
+                            { job.status === true 
+                                ? <span className="label label-success">Kích hoạt</span> 
+                                : <span className="label label-danger">Ẩn</span> 
+                            }
+                        </td>
+                        <td>
+                            <button type="button" className="btn btn-warning" onClick={ () => { this.onHandlerEdit(job); } }>Sửa</button>&nbsp;
+                            <button type="button" className="btn btn-danger" onClick={ () => { this.onHandlerDelete(job.id); } }>Xóa</button>
+                        </td>
+                    </tr>
         });
 
         return (

@@ -18,7 +18,6 @@ class Search extends Component {
     };
 
     onClickSearch = () => {
-        //this.props.onListenSearch(this.state.txtSearch);
         this.props.onSearchTasks(this.state.txtSearch);
     }
 
