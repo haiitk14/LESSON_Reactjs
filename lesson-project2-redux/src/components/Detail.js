@@ -21,7 +21,7 @@ class Detail extends Component {
             this.setState({
                 id: nextProps.itemEditing.id,
                 txtName: nextProps.itemEditing.name,
-                sltStatus: nextProps.itemEditing.status
+                sltStatus: nextProps.itemEditing.status === true ? "true" : "false"
             });
         } else {
             this.onResetState();

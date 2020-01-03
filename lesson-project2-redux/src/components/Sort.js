@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; // kết nối store láy state
+import * as actions from './../actions/index'
 
 class Sort extends Component {
     constructor() {
@@ -10,7 +12,7 @@ class Sort extends Component {
     }
 
     onAZ = () => {
-        this.props.onListenTypeSort("AZ");
+        this.props.onSortTasks("AZ");
 
         this.setState({
             typeSort: "AZ"
@@ -18,7 +20,7 @@ class Sort extends Component {
     };
 
     onZA = () => {
-        this.props.onListenTypeSort("ZA");
+        this.props.onSortTasks("ZA");
 
         this.setState({
             typeSort: "ZA"
@@ -26,7 +28,7 @@ class Sort extends Component {
     };
 
     onHide = () => {
-        this.props.onListenTypeSort("Hide");
+        this.props.onSortTasks("Hide");
 
         this.setState({
             typeSort: "Hide"
@@ -34,7 +36,7 @@ class Sort extends Component {
     };
 
     onActive = () => {
-        this.props.onListenTypeSort("Active");
+        this.props.onSortTasks("Active");
 
         this.setState({
             typeSort: "Active"
@@ -72,16 +74,28 @@ class Sort extends Component {
                   <ul className="dropdown-menu">
 
 
-                    <li><a onClick={ this.onAZ }><i className="fa fa-sort-alpha-asc" aria-hidden="true"></i> Từ A - Z &nbsp; { iconAZ }</a></li>
-                    <li><a onClick={ this.onZA }><i className="fa fa-sort-alpha-desc" aria-hidden="true"></i> Từ Z - A &nbsp; { iconZA }</a></li>
+                    <li><a href='# ' onClick={ this.onAZ }><i className="fa fa-sort-alpha-asc" aria-hidden="true"></i> Từ A - Z &nbsp; { iconAZ }</a></li>
+                    <li><a href='# ' onClick={ this.onZA }><i className="fa fa-sort-alpha-desc" aria-hidden="true"></i> Từ Z - A &nbsp; { iconZA }</a></li>
                     <li className="divider"></li>
-                    <li><a onClick={ this.onHide }>Trạng thái Ẩn &nbsp; { iconHide }</a></li>
-                    <li><a onClick={ this.onActive }>Trạng thái Kích hoạt &nbsp; { iconActive }</a></li>
+                    <li><a href='# ' onClick={ this.onHide }>Trạng thái Ẩn &nbsp; { iconHide }</a></li>
+                    <li><a href='# ' onClick={ this.onActive }>Trạng thái Kích hoạt &nbsp; { iconActive }</a></li>
                   </ul>
                 </div>
               </div>
         );
     }
 }
+const mapStatetoProps = (state) => {
+    return {
+        
+    }
+ }
 
-export default Sort;
+ const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSortTasks: (txtSort) => {
+            dispatch(actions.sortTasks(txtSort));
+        },
+    }
+ }
+export default connect(mapStatetoProps, mapDispatchToProps) (Sort);

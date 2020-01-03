@@ -40,7 +40,8 @@ var myReducer = (state = initialState, action) => {
 			return state;
 
 		case types.SAVE_TASK:
-            var task = {
+            console.log(action);
+            let task = {
                 id: action.task.id ,
                 name: action.task.name,
                 status: action.task.status
@@ -49,7 +50,7 @@ var myReducer = (state = initialState, action) => {
                 task.id = Math.floor(Math.random() * 1000);
                 state.push(task);
             } else {
-               var index = findIndex(state, task.id);
+                let index = findIndex(state, task.id);
                state[index] = task;
             }
 			return [...state]; // copy [] state mới
@@ -59,8 +60,9 @@ var myReducer = (state = initialState, action) => {
             return [...state]; // copy [] state mới
             
         case types.UPDATE_STATUS_TASK:
-            var id = action.id;
-            var index = findIndex(state, id);
+            console.log("aaaa");
+            let id = action.id;
+            let indexx = findIndex(state, id);
             
             //------------ Cách 1 ------
             // var cloneTask = {...state[index]};
@@ -68,30 +70,34 @@ var myReducer = (state = initialState, action) => {
             // state[index] = cloneTask;
 
             // ----------- Cách 2 ------
-            state[index] = {
-                ...state[index],
-                status: state[index].status = !state[index].status
+            state[indexx] = {
+                ...state[indexx],
+                status: state[indexx].status = !state[indexx].status
             }
             return [...state];
-        
-            case types.SEARCH_TASKS:
-                var txtSearch = action.txtSearch;
-                console.log(txtSearch);
-                // var array = [];
 
-                // [...state].forEach((element, index) => {
-                //     if (element.name.toLowerCase().includes(txtSearch.trim().toLowerCase())) {
-                //         array.push(element);
-                //     }
-                // });
-                // state = array;
+        case types.SORT_TASKS:
+            let cloneTask = state;
+            switch(action.txtSort) {
+                case "AZ":
+                    cloneTask.sort((a, b) => (a.name > b.name) ? 1 : -1);
+                    break;
+                case "ZA":
+                    cloneTask.sort((a, b) => (a.name > b.name) ? 1 : -1);
+                    cloneTask.reverse();
+                    break;
+                case "Hide":
+                    break;
+                case "Active":
+                    break;
+                default:
+                    break;
 
-                return [...state];
-
+            }
+            state = cloneTask;
+            return [...state];
 		default: return state;
 	}
-
-	return state;
 }
 
 export default myReducer;

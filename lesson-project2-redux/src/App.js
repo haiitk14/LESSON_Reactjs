@@ -22,7 +22,6 @@ class App extends Component {
                 status: 0
             },
             isEdit: false,
-            txtSearch: "",
             typeSort: "",
             
         }
@@ -42,13 +41,12 @@ class App extends Component {
                 status: Number(params.status)
             });
         } else {
-            arrNew.map((job, index) => {
-
+            arrNew.forEach(function(job,index){ 
                 if ( job.id === params.id ) {
                     job.name = params.name;
                     job.status = Number(params.status);
                 }
-            });
+             })  
         }
         
         this.setState({ 
@@ -59,29 +57,30 @@ class App extends Component {
     };
 
     onListenTypeSort = (params) => {
-        let arrNew2 = this.state.results;
+        console.log(params);
+        // let arrNew2 = this.state.results;
 
-        switch(params) {
-            case "AZ":
-                arrNew2.sort((a, b) => (a.name > b.name) ? 1 : -1);
-                break;
-            case "ZA":
-                arrNew2.sort((a, b) => (a.name > b.name) ? 1 : -1);
-                arrNew2.reverse();
-                break;
-            case "Hide":
-                break;
-            case "Active":
-                break;
-            default:
-                break;
+        // switch(params) {
+        //     case "AZ":
+        //         arrNew2.sort((a, b) => (a.name > b.name) ? 1 : -1);
+        //         break;
+        //     case "ZA":
+        //         arrNew2.sort((a, b) => (a.name > b.name) ? 1 : -1);
+        //         arrNew2.reverse();
+        //         break;
+        //     case "Hide":
+        //         break;
+        //     case "Active":
+        //         break;
+        //     default:
+        //         break;
 
-        }
+        // }
 
-        this.setState({
-            typeSort: params,
-            results: arrNew2
-        });
+        // this.setState({
+        //     typeSort: params,
+        //     results: arrNew2
+        // });
     }
 
     render() {

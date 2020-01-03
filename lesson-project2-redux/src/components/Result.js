@@ -20,23 +20,29 @@ class Result extends Component {
     }
     
     render() {
-        
+        let stt = 1;
         let elm = this.props.dataResults.map((job, index) => {
-                
-            return  <tr key={index}>
-                        <td>{ index + 1 }</td>
-                        <td>{ job.name }</td>
-                        <td onClick={ () => { this.onHandlerUpdateStatus(job.id) } }>
-                            { job.status === true 
-                                ? <span className="label label-success">Kích hoạt</span> 
-                                : <span className="label label-danger">Ẩn</span> 
-                            }
-                        </td>
-                        <td>
-                            <button type="button" className="btn btn-warning" onClick={ () => { this.onHandlerEdit(job); } }>Sửa</button>&nbsp;
-                            <button type="button" className="btn btn-danger" onClick={ () => { this.onHandlerDelete(job.id); } }>Xóa</button>
-                        </td>
-                    </tr>
+            let txtS = this.props.txtSearch;
+
+            if (job.name.toLowerCase().includes(txtS.trim().toLowerCase())) {
+             
+                return  <tr key={stt}>
+                            <td>{ stt++ }</td>
+                            <td>{ job.name }</td>
+                            <td onClick={ () => { this.onHandlerUpdateStatus(job.id) } }>
+                                { job.status === true 
+                                    ? <span className="label label-success">Kích hoạt</span> 
+                                    : <span className="label label-danger">Ẩn</span> 
+                                }
+                            </td>
+                            <td>
+                                <button type="button" className="btn btn-warning" onClick={ () => { this.onHandlerEdit(job); } }>Sửa</button>&nbsp;
+                                <button type="button" className="btn btn-danger" onClick={ () => { this.onHandlerDelete(job.id); } }>Xóa</button>
+                            </td>
+                        </tr>
+            } else {
+                return <tr key={(index + stt) * 0.9999}></tr>;
+            }
         });
 
         return (
@@ -62,7 +68,8 @@ class Result extends Component {
   
 const mapStatetoProps = (state) => {
     return {
-        dataResults: state.tasks
+        dataResults: state.tasks,
+        txtSearch: state.search
     }
  }
  // connect(mapStatetoProps, null)

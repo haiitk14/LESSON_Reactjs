@@ -6,13 +6,13 @@ var initialState = "";
 var myReducer = (state = initialState, action) =>{
 	switch( action.type ) {
 		case types.SEARCH_TASKS:
-			console.log("OKOK");
+			state = action.txtSearch;
 			return state;
-		default: return false;
+		
+		default: return state;
 
 	}
 
-	return state;
 }
 
 export default myReducer;

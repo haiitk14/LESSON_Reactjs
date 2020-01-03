@@ -46,3 +46,9 @@ export const searchTasks = (txtSearch) => {
 		txtSearch
 	}
 }
+export const sortTasks = (txtSort) => {
+	return {
+		type: types.SORT_TASKS,
+		txtSort
+	}
+}

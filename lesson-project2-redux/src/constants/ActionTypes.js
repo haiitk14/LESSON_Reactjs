@@ -5,3 +5,4 @@ export const TOGGLE_FORM = 'TOGGLE_FORM';
 export const UPDATE_STATUS_TASK = 'UPDATE_STATUS_TASK';
 export const EDIT_TASK  = 'EDIT_TASK';
 export const SEARCH_TASKS  = 'SEARCH_TASKS';
+export const SORT_TASKS  = 'SORT_TASKS';
