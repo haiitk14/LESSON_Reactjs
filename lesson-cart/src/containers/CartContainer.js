@@ -5,6 +5,12 @@ import * as Message from './../constants/Message';
 import Cart from '../components/Cart';
 import CartItem from '../components/CartItem';
 import CartResult from '../components/CartResult';
+import { 
+    actDeleteProductInCart, 
+    actMinusProductInCart, 
+    actPlusProductInCart, 
+    actChangeMessage 
+} from './../actions/index';
 
 class CartContainer extends Component {
     render() {
@@ -13,15 +19,26 @@ class CartContainer extends Component {
         return (
 
             <Cart>
-                { this.showCartItem(cart) }
-                { this.showCartResult(cart) }
+                {this.showCartItem(cart)}
+                {this.showCartResult(cart)}
             </Cart>
 
         );
     }
 
     showCartItem = (cart) => {
-        let result = Message.MSG_CART_EMPTY;
+        let { 
+            onDeleteProductInCart, 
+            onMinusProductInCart, 
+            onPlusProductInCart,
+            onChangeMessage
+        } = this.props;
+
+        let result = <tr>
+                        <td>
+                            { Message.MSG_CART_EMPTY }
+                        </td>
+                    </tr>;
 
         if (cart.length > 0) {
 
@@ -30,7 +47,11 @@ class CartContainer extends Component {
                     <CartItem
                         key={index}
                         cartItem={item}
-                        index = { index }
+                        index={index}
+                        onDeleteProductInCart ={onDeleteProductInCart}
+                        onMinusProductInCart ={onMinusProductInCart}
+                        onPlusProductInCart ={onPlusProductInCart}
+                        onChangeMessage = {onChangeMessage}
                     >
                     </CartItem>
                 )
@@ -44,7 +65,7 @@ class CartContainer extends Component {
         let result = null;
 
         if (cart.length > 0) {
-            result = <CartResult cart={ cart }></CartResult>
+            result = <CartResult cart={cart}></CartResult>
         }
         return result;
     }
@@ -64,14 +85,33 @@ CartContainer.propTypes = {
             }).isRequired,
             quantity: PropTypes.number.isRequired
         })
-    ).isRequired
+    ).isRequired,
+    onDeleteProductInCart: PropTypes.func.isRequired,
+    onMinusProductInCart: PropTypes.func.isRequired,
+    onPlusProductInCart: PropTypes.func.isRequired,
+    onChangeMessage: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => {
     return {
         cart: state.cart
     }
 }
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onDeleteProductInCart: (product) => {
+            dispatch(actDeleteProductInCart(product));
+        },
+        onMinusProductInCart: (product) => {
+            dispatch(actMinusProductInCart(product));
+        },
+        onPlusProductInCart: (product) => {
+            dispatch(actPlusProductInCart(product));
+        },
+        onChangeMessage: (message) => {
+            dispatch(actChangeMessage(message));
+        }
+    }
+}
 
 
-
-export default connect(mapStateToProps, null)(CartContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CartContainer);

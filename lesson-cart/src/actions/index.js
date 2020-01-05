@@ -7,3 +7,31 @@ export const actAddToCart = (product, quantity) => {
         quantity
     }
 }
+
+export const actChangeMessage = (message) => {
+    return {
+        type: types.CHANGE_MESSAGE,
+        message,
+    }
+}
+
+export const actDeleteProductInCart = (product) => {
+    return {
+        type: types.DELETE_PRODUCT_IN_CART,
+        product,
+    }
+}
+
+export const actMinusProductInCart = (product) => {
+    return {
+        type: types.MINUS_PRODUCT_IN_CART,
+        product,
+    }
+}
+
+export const actPlusProductInCart = (product) => {
+    return {
+        type: types.PLUS_PRODUCT_IN_CART,
+        product,
+    }
+}

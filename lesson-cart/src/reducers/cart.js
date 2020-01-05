@@ -1,40 +1,82 @@
 import * as types from './../constants/ActionType';
 
 var data = JSON.parse(localStorage.getItem('CART'));
-var initialState = [
-    {
-        product: {
-            id: 1,
-            name: 'IP 7',
-            image: 'https://cdn.tgdd.vn/Products/Images/42/210653/iphone-11-pro-max-256gb-green-600x600.jpg',
-            description: 'SP ip 7',
-            price: 1000,
-            inventory: 10,
-            rating: 4
-        },
-        quantity: 5
-    },
-    {
-        product: {
-            id: 2,
-            name: 'Samsung',
-            image: 'https://cdn1.viettelstore.vn/images/Product/ProductImage/medium/1100345574.jpeg',
-            description: 'SP samsung s7',
-            price: 2000,
-            inventory: 9,
-            rating: 2
-        },
-        quantity: 2
-    }
-];
+var initialState = data ? data : [];
 
 const products = (state = initialState, action) => {
-    switch(action.type) {
-        case types.ADD_TO_CART: 
-            console.log(action);
+    let { product, quantity } = action;
+    let index = -1;
+
+    switch (action.type) {
+
+        case types.ADD_TO_CART:
+            index = findProductInCart(state, product);
+
+            if (index === -1) {
+                state.push({
+                    product: product,
+                    quantity: quantity
+                });
+            } else {
+                state[index].quantity += 1;
+            }
+            localStorage.setItem("CART", JSON.stringify(state));
             return [...state];
+
+        case types.DELETE_PRODUCT_IN_CART:
+            index = findProductInCart(state, product);
+
+            if (index !==  -1) {
+                state.splice(index, 1);
+            }
+            localStorage.setItem("CART", JSON.stringify(state));
+            return [...state];
+
+        case types.MINUS_PRODUCT_IN_CART:
+            index = findProductInCart(state, product);
+            
+            if (index !==  -1) {
+                let sumQuantity = state[index].quantity;
+
+                if (sumQuantity > 1) {
+                    state[index].quantity -= 1;
+                } else {
+                    state.splice(index, 1);
+                }
+            }
+            localStorage.setItem("CART", JSON.stringify(state));
+            return [...state];
+            
+        case types.PLUS_PRODUCT_IN_CART:
+            index = findProductInCart(state, product);
+
+            if (index === -1) {
+                state.push({
+                    product: product,
+                    quantity: quantity
+                });
+            } else {
+                state[index].quantity += 1;
+            }
+            localStorage.setItem("CART", JSON.stringify(state));
+            return [...state];
+
         default: return [...state];
     }
+}
+
+var findProductInCart = (cart, product) => {
+    let result = -1;
+
+    if (cart.length > 0) {
+        for (let i = 0; i < cart.length; i++) {
+            if (product.id === cart[i].product.id) {
+                result = i;
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 export default products;

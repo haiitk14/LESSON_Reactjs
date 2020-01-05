@@ -3,29 +3,37 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Products from './../components/Products';
 import Product from '../components/Product';
-import * as actions from './../actions/index'
+import { actAddToCart, actChangeMessage } from './../actions/index'
 
 
 class ProductsContainer extends Component {
     render() {
         let { products } = this.props;
-        
+
         return (
 
-           <Products>
-               { this.showProducts(products) }
-           </Products>
+            <Products>
+                {this.showProducts(products)}
+            </Products>
 
         );
     }
 
     showProducts(products) {
         var result = null;
-        let { onAddToCart } = this.props;
+        let { onAddToCart, onChangeMessage } = this.props;
 
         if (products.length > 0) {
             result = products.map((item, index) => {
-                return <Product key={ index } product={ item } onAddToCart= {onAddToCart}></Product>
+                return (
+                    <Product
+                        key={index}
+                        product={item}
+                        onAddToCart={onAddToCart}
+                        onChangeMessage={onChangeMessage}
+                    >
+                    </Product>
+                )
             });
         }
 
@@ -43,7 +51,8 @@ ProductsContainer.propTypes = {
             inventory: PropTypes.number.isRequired,
             rating: PropTypes.number.isRequired
         })
-    ).isRequired
+    ).isRequired,
+    onChangeMessage : PropTypes.func.isRequired
 }
 
 
@@ -55,9 +64,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
     return {
         onAddToCart: (product) => {
-            dispatch(actions.actAddToCart(product, 1));
+            dispatch(actAddToCart(product, 1));
         },
+        onChangeMessage: (message) => {
+            dispatch(actChangeMessage(message));
+        }
     }
- }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps) (ProductsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
