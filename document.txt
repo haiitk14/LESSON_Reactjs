@@ -5,5 +5,5 @@
 - ESLint
 - Reactjs code snippet
 - Vscode-icon
-- Editor Config for VScode
+- EditorConfig for VScode
 - One dark Pro 
