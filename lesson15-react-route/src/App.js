@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import NotFound from './components/NotFound';
+import routes from './routes';
 import Menu from './components/Menu';
 
 class App extends Component {
@@ -18,15 +15,32 @@ class App extends Component {
                     {/* Nội dung */}
                     {/* Switch như witch case trong code */}
                     <Switch>
-                        <Route path="/" exact component={Home}></Route>
-                        <Route path="/about" component={About}></Route>
-                        <Route path="/contact" component={Contact}></Route>
-                        <Route component={ NotFound }></Route>
+                        {
+                            this.showRoutes(routes)
+                        }
                     </Switch>
                     
                 </div>
             </Router>
         );
+    }
+    showRoutes = (routes) => {
+        let result = null;
+        if (routes.length > 0) {
+            result = routes.map((item, index) => {
+                return (
+                    <Route 
+                        key={ index }
+                        path={ item.path } 
+                        exact={ item.exact }
+                        component={ item.main }
+                    >
+                    </Route>
+                )
+            })
+        }
+
+        return result;
     }
 
 }
