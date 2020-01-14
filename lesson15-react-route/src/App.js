@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import routes from './routes';
 import Menu from './components/Menu';
 
@@ -11,6 +11,9 @@ class App extends Component {
                 <div className="App">
                     {/* MENU */}
                     <Menu></Menu>
+                    <Link to="" onClick={ this.logout }>
+                       Đăng xuất
+                    </Link>
                 
                     {/* Nội dung */}
                     {/* Switch như witch case trong code */}
@@ -19,10 +22,14 @@ class App extends Component {
                             this.showRoutes(routes)
                         }
                     </Switch>
+                   
                     
                 </div>
             </Router>
         );
+    }
+    logout = () => {
+        localStorage.removeItem('user');
     }
     showRoutes = (routes) => {
         let result = null;

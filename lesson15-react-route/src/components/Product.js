@@ -4,7 +4,7 @@ class Product extends Component {
     render() {
         let {match} = this.props;
         let name = match.params.slug;
-        console.log(name);
+        console.log(match);
 
         return (
             <div>

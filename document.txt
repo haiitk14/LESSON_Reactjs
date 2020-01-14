@@ -7,3 +7,11 @@
 - Vscode-icon
 - EditorConfig for VScode
 - One dark Pro 
+
+* REACT ROUTER
+- MATCH: get data in url
+- PROMPT: thông báo pass trang
+- REDIRECT: pass trang 
+
+* Create project 
+- npm  install redux react-redux react-router-dom --save
