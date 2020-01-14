@@ -1,28 +1,36 @@
 import React from 'react';
 import './App.css';
 import Menu from './components/Menu/Menu';
-import ProductList from './components/ProductList/ProductList';
 import routes from './routes';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 
 function App() {
     return (
-        <div>
-            <Menu />
 
-            <div className="container">
+        <Router>
+            <div>
+                {/* MENU */}
+                <Menu></Menu>
+                <div className="container">
 
-                <div class="row">
-
-                    {}
+                    <div className="row">
+                        {/* Nội dung */}
+                        {/* Switch như witch case trong code */}
+                        <Switch>
+                            {
+                                showContentMenus(routes)
+                            }
+                        </Switch>
+                    </div>
 
                 </div>
 
             </div>
+        </Router>
 
-        </div>
+
     );
 }
 const showContentMenus = (routes) => {
@@ -42,7 +50,7 @@ const showContentMenus = (routes) => {
         })
     }
 
-    return  <Switch> result </Switch>;
+    return result;
 }
 
 export default App;

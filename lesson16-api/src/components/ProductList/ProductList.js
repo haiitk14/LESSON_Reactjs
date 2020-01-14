@@ -26,7 +26,8 @@ function ProductList() {
                         <tbody>
 
                             <ProductItem></ProductItem>
-                            
+                            <ProductItem></ProductItem>
+                            <ProductItem></ProductItem>
                         </tbody>
                     </table>
                 </div>
