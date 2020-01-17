@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
 import ProductList from './../../components/ProductList/ProductList';
 import ProductItem from './../../components/ProductItem/ProductItem';
+import { connect } from 'react-redux'; // kết nối redux
+
 
 class ProductListPage extends Component {
     render() {
-        let products = [
-            {
-                id: 1,
-                name: 'Iphone 6',
-                price: 2000,
-                status: true
-            },
-            {
-                id: 3,
-                name: 'Iphone 7',
-                price: 40000,
-                status: false
-            }
-        ];
+        //let { products } = this.props;
+        let products = [];
+
         return (
+            <div>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" className="btn btn-primary">Thêm mới</button>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <button type="button" className="btn btn-primary">Thêm mới</button>
+                        <ProductList>
 
-                    <ProductList>
+                            {this.showProducts(products)}
 
-                        {this.showProducts(products)}
+                        </ProductList>
 
-                    </ProductList>
-
+                    </div>
                 </div>
             </div>
-
         );
     }
     showProducts = (products) => {
@@ -49,8 +44,19 @@ class ProductListPage extends Component {
             })
         }
         return result;
-    
+
     }
 }
 
-export default ProductListPage;
+const mapStateToProps = state => {
+    return {
+        products: state.products
+    };
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, null)(ProductListPage);

@@ -15,3 +15,9 @@
 
 * Create project 
 - npm  install redux react-redux react-router-dom --save
+
+* Install JSON-SERVER 
+- npm install -g json-server
+
+* Install AXIOS ( call API )
+- npm install --save axios

@@ -4,7 +4,6 @@ class ProductItem extends Component {
     
     render() {
         let { product, index } = this.props;
-        console.log(product);
         let statusName = product.status ? 'Còn hàng' : 'Hết hàng';
         let statusClass = product.status ? 'primary' : 'danger';
     
