@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function NotFoundPage() {
-    return (
-       
-       <div className="container">
-           <h1>404. Không tìm thấy</h1>
-       </div>
-        
-    );
+class NotFoundPage extends Component {
+    render() {
+        return (
+
+            <div className="container">
+                <h1>404. Không tìm thấy</h1>
+            </div>
+
+        );
+    }
+
 }
 
 export default NotFoundPage;

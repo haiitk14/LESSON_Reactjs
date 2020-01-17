@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function HomePage() {
-    return (
-       
-       <div class="container">
-           <h1>Trag chủ</h1>
-       </div>
-        
-    );
+class HomePage extends Component {
+    render() {
+        return (
+
+            <div className="container">
+                <h1>Trang chủ</h1>
+            </div>
+
+        );
+    }
+
 }
 
 export default HomePage;
