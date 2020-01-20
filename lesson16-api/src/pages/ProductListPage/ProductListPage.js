@@ -2,13 +2,36 @@ import React, { Component } from 'react';
 import ProductList from './../../components/ProductList/ProductList';
 import ProductItem from './../../components/ProductItem/ProductItem';
 import { connect } from 'react-redux'; // kết nối redux
+import Axios from 'axios';
 
 
 class ProductListPage extends Component {
-    render() {
-        //let { products } = this.props;
-        let products = [];
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: []
+        };
+    }
+    componentDidMount() {
+        // Sau khi component render lần 1
+        let host = 'http://localhost:3000'; 
+        Axios({
+            method: 'get',
+            url: host + '/products',
+            responseType: 'stream'
+        }).then(response => {
+            this.setState({
+                products: response.data
+            });
+            
+        }).catch(error => {
+            console.log(error);
+        });
+    }
 
+    render() {
+        let { products } = this.state;
+        //let products  = [];
         return (
             <div>
                 <div className="row">

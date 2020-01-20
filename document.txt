@@ -18,6 +18,8 @@
 
 * Install JSON-SERVER 
 - npm install -g json-server
+Run:	
+- json-server --watch db.json
 
 * Install AXIOS ( call API )
 - npm install --save axios
