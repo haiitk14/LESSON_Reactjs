@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ProductList from './../../components/ProductList/ProductList';
 import ProductItem from './../../components/ProductItem/ProductItem';
 import { connect } from 'react-redux'; // kết nối redux
-import Axios from 'axios';
+import callAPI from './../../utils/apiCaller';
 
 
 class ProductListPage extends Component {
@@ -13,19 +13,12 @@ class ProductListPage extends Component {
         };
     }
     componentDidMount() {
+        // Chạy sau render()
         // Sau khi component render lần 1
-        let host = 'http://localhost:3000'; 
-        Axios({
-            method: 'get',
-            url: host + '/products',
-            responseType: 'stream'
-        }).then(response => {
+        callAPI('products', 'GET', null).then(res => {
             this.setState({
-                products: response.data
+                products: res.data
             });
-            
-        }).catch(error => {
-            console.log(error);
         });
     }
 
