@@ -1,14 +1,16 @@
 {
-    "products": [
-        {
-            "id": 1,
-            "name": "Mặc định",
-            "image": "https://cdn.tgdd.vn/Products/Images/42/210653/iphone-11-pro-max-256gb-green-600x600.jpg",
-            "description": "SP ip 7",
-            "price": 1000,
-            "inventory": 10,
-            "rating": 4,
-            "status": true
-        }
-    ]
+  "products": [
+    {
+      "name": "dasdasd",
+      "price": "123123",
+      "status": false,
+      "id": 2
+    },
+    {
+      "name": "bbbbbbbbbb",
+      "price": "1111111",
+      "status": true,
+      "id": 3
+    }
+  ]
 }
