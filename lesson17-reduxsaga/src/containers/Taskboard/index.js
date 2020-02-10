@@ -7,26 +7,13 @@ import Grid from '@material-ui/core/Grid';
 import { STATUSES } from './../../constants/index';
 import TaskList from '../../components/TaskList';
 import TaskForm from '../../components/TaskForm';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as taskActions from './../../actions/task';
+import PropTypes from 'prop-types';
 
 const listTask = [
-    {
-        id: 1,
-        title: "Read book",
-        description: "Read IT",
-        status: 0
-    },
-    {
-        id: 2,
-        title: "Play game",
-        description: "Liên quân mobile",
-        status: 1
-    },
-    {
-        id: 1,
-        title: "Sing song",
-        description: "Waiting for love",
-        status: 2
-    }
+
 ];
 
 class Taskboard extends Component {
@@ -34,21 +21,12 @@ class Taskboard extends Component {
         open: false
     }
 
-    render() {
-        return (
-            <div>
-                <div>
-                    <Button variant="contained" color="primary"
-                        onClick={this.openDialog}
-                    >
-                        <AddIcon /> Thêm mới công việc
-                    </Button>
-                </div>
-                {this.renderBoard()}
-                {this.renderDialog()}
-            </div>
-        );
+    componentDidMount() {
+        let { taskActionCreator } = this.props;
+        let { fetchListTask } = taskActionCreator;
+        //fetchListTask();
     }
+
     renderBoard() {
         let xhtml = null;
         xhtml = (
@@ -96,6 +74,44 @@ class Taskboard extends Component {
         )
         return xhtml;
     }
+
+    render() {
+        return (
+            <div>
+                <div>
+                    <Button variant="contained" color="primary"
+                        onClick={this.openDialog}
+                    >
+                        <AddIcon /> Thêm mới công việc
+                    </Button>
+                </div>
+                {this.renderBoard()}
+                {this.renderDialog()}
+            </div>
+        );
+    }
 }
 
-export default withStyles(styles)(Taskboard);
+Taskboard.propTypes = {
+    taskActionCreator: PropTypes.shape({
+        fetchListTask: PropTypes.func,
+    })
+}
+
+const mapStatetoProps = (state) => {
+    return {
+
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        taskActionCreator: bindActionCreators(taskActions, dispatch)
+    }
+}
+
+export default withStyles(styles)(
+    connect(
+        mapStatetoProps,
+        mapDispatchToProps
+    )(Taskboard)
+);

@@ -1,3 +1,5 @@
+export const API_EMPOINT = 'http://localhost:3000';
+
 export const STATUSES = [
     {
         value: 0,
