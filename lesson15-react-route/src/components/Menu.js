@@ -31,6 +31,7 @@ const menus = [
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
     return (
         <Route path={to} exact={activeOnlyWhenExact} children={({ match }) => {
+            console.log(match);
             var active = match ? 'active abc' : '';
             return (
                 <li className={`my-li ${active}`}>

@@ -20,6 +20,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
             path={to}
             exact={activeOnlyWhenExact}
             children={({ match }) => {
+                // match: là đối tượng trên url hiện tại
                 var active = match ? 'active' : '';
                 return (
                     <li className={active}>
