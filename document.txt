@@ -25,4 +25,6 @@ Run:
 * Install AXIOS ( call API )
 - npm install --save axios
 
+* Install React Toastify
+- npm install --save react-toastify
 

@@ -11,10 +11,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from './../../actions/task';
 import PropTypes from 'prop-types';
+import { Box } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
-const listTask = [
-
-];
 
 class Taskboard extends Component {
     state = {
@@ -23,12 +22,13 @@ class Taskboard extends Component {
 
     componentDidMount() {
         let { taskActionCreator } = this.props;
-        let { fetchListTask } = taskActionCreator;
-        //fetchListTask();
+        let { fetchListTaskRequest } = taskActionCreator;
+        fetchListTaskRequest();
     }
 
     renderBoard() {
         let xhtml = null;
+        let { listTask } = this.props;
         xhtml = (
             <Grid container spacing={2}>
                 {
@@ -74,6 +74,9 @@ class Taskboard extends Component {
         )
         return xhtml;
     }
+    showToast() {
+        toast.error("Wow so easy !");
+    }
 
     render() {
         return (
@@ -84,6 +87,13 @@ class Taskboard extends Component {
                     >
                         <AddIcon /> Thêm mới công việc
                     </Button>
+                    <Box ml="1">
+                        <Button variant="contained" color="primary"
+                            onClick={this.showToast}
+                        >
+                            <AddIcon /> Click me
+                    </Button>
+                    </Box>
                 </div>
                 {this.renderBoard()}
                 {this.renderDialog()}
@@ -94,13 +104,13 @@ class Taskboard extends Component {
 
 Taskboard.propTypes = {
     taskActionCreator: PropTypes.shape({
-        fetchListTask: PropTypes.func,
+        fetchListTaskRequest: PropTypes.func,
     })
 }
 
 const mapStatetoProps = (state) => {
     return {
-
+        listTask: state.task.listStask
     }
 }
 const mapDispatchToProps = dispatch => {

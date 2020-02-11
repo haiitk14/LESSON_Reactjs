@@ -6,7 +6,6 @@ class AxiosService {
         const instance = axios.create();
         instance.interceptors.response.use(this.handleSucess, this.handleError);
         this.instance = instance;
-        console.log("1");
     }
 
     handleSucess(response) {
@@ -19,9 +18,9 @@ class AxiosService {
     }
 
     get(url) {
-        console.log("2");
-
-        return this.instance.get(url);
+        let res = this.instance.get(url); 
+        console.log(res);
+        return res;
     }
 
 }
